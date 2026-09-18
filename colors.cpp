@@ -2,6 +2,10 @@
 #ifndef COLORS_H
 #define COLORS_H
 
+using namespace std;
+
+// BUENAS, ahora aca iran las constantes del proyecto: colores, sprites y paletas.
+
 #include <iostream>
 #include <string>
 
@@ -25,11 +29,11 @@ enum class Color {
     NONE
 };
 
-const std::string RESET = "\033[0m";
+const string RESET = "\033[0m";
 
-inline std::string color(Color c) {
+inline string color(Color colore  ) { // luigi, il colore por favore...
 
-    switch (c) {
+    switch (colore) {
         case Color::BLACK:          return "\033[30m";
         case Color::LIGHTBLACK_EX:  return "\033[90m";
 
@@ -57,14 +61,147 @@ inline std::string color(Color c) {
         default:                    return "";
     }
 }
-inline void printCell(Color c) {
 
-    if (c == Color::NONE) {
-        std::cout << "  ";
+inline void printCell(Color colore) {
+
+    if (colore == Color::NONE) {
+        cout << "  ";
     }
     else {
-        std::cout << color(c) << "██" << RESET;
+        cout << color(colore) << "██" << RESET;
     }
 }
+
+// ----------------------------- SPRITES/PALETAS ----------------------------------------------------
+
+
+// mario de 16 filas x 12 columnas (FALTA HACERLE BIEN SU OJO)
+const int MARIO_SPRITE[16][12] = {
+    {0,0,0,1,1,1,1,1,0,0,0,0},
+    {0,0,1,1,1,1,1,1,1,1,1,0},
+    {0,0,2,2,2,3,3,2,3,0,0,0},
+    {0,2,3,2,3,3,3,2,3,3,3,0},
+    {0,2,3,2,2,3,3,3,2,3,3,3},
+    {0,2,2,3,3,3,3,2,2,2,2,0},
+    {0,0,0,3,3,3,3,3,3,3,0,0},
+    {0,0,1,1,4,1,1,4,1,1,0,0},
+    {0,1,1,1,4,1,1,4,1,1,1,0},
+    {1,1,1,1,4,4,4,4,1,1,1,1},
+    {3,3,1,4,5,4,4,5,1,1,3,3},
+    {3,3,3,4,4,4,4,4,4,3,3,3},
+    {3,3,4,4,4,4,4,4,4,4,3,3},
+    {0,0,4,4,4,0,0,4,4,4,0,0},
+    {0,0,2,2,0,0,0,0,2,2,0,0},
+    {0,2,2,2,0,0,0,0,2,2,2,0}
+};
+const Color MARIO_PALETTE[6] = {
+    Color::WHITE,
+    Color::LIGHTRED_EX,
+    Color::BLACK,
+    Color::LIGHTWHITE_EX,
+    Color::LIGHTBLUE_EX,
+    Color::LIGHTYELLOW_EX
+};
+
+
+// Goomba (la kk) de 16 filas x 16 columnas
+const int GOOMBA_SPRITE[16][16] = {
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0},
+    {0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0},
+    {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0},
+    {0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0},
+    {0,0,0,1,1,1,1,1,1,1,1,2,2,1,0,0},
+    {0,0,1,1,1,3,1,1,1,1,2,3,1,1,1,0},
+    {0,0,1,1,1,2,2,2,2,2,2,3,1,1,1,0},
+    {0,1,1,1,1,2,3,1,1,3,2,3,1,1,1,1},
+    {0,1,1,1,1,3,3,1,1,3,3,3,1,1,1,1},
+    {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {0,0,1,1,1,1,3,3,3,3,3,1,1,1,1,0},
+    {0,0,0,0,3,3,3,3,3,3,3,3,0,0,0,0},
+    {0,0,0,3,3,3,3,3,3,3,3,3,2,0,0,0},
+    {0,0,0,2,2,2,3,3,3,3,2,2,2,2,0,0},
+    {0,0,0,2,2,2,2,0,0,2,2,2,2,2,0,0}
+};
+const Color GOOMBA_PALETTE[4] = {
+    Color::WHITE,
+    Color::YELLOW,
+    Color::BLACK,
+    Color::LIGHTWHITE_EX
+};
+
+// arbust (se tienen que hacer 4, 3 pegados y uno separado)
+// 7 filas x 8 columnas
+
+const int TREE_SPRITE[7][8] = {
+    {0,0,0,1,1,0,0,0},
+    {0,0,1,1,1,1,0,0},
+    {0,1,1,1,1,1,1,0},
+    {1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1}
+};
+const Color TREE_PALETTE[2] = {
+    Color::WHITE,
+    Color::GREEN
+};
+
+
+// la madera roja (9 filas x 9 columnas)
+// se hacen 3 (intercalados con los lucky blocks)
+
+const int BLOCK_MADERA_SPRITE[9][9] = {
+
+    {0,0,0,0,1,0,0,0,0},
+    {0,0,0,0,1,0,0,0,0},
+    {1,1,1,1,1,1,1,1,1},
+    {0,0,1,0,0,0,1,0,0},
+    {0,0,1,0,0,0,1,0,0},
+    {0,0,1,0,0,0,1,0,0},
+    {1,1,1,1,1,1,1,1,1},
+    {0,0,0,0,1,0,0,0,0},
+    {0,0,0,0,1,0,0,0,0}
+};
+const Color BLOCK_MADERA_PALETTE[2] = {
+
+    Color::RED,
+    Color::BLACK
+};
+
+// Lucky Blocks (9 filas x 9 columnas)
+// Se hacen 3, uno justo sobre los tres arbustos y dos intercalados con las maderas
+
+const int BLOCK_SIGNO_SPRITE[9][9] = {
+
+    {0,0,0,0,0,0,0,0,0},
+    {0,0,0,1,1,1,0,0,0},
+    {0,0,1,0,0,0,1,0,0},
+    {0,0,0,0,0,1,1,0,0},
+    {0,0,0,0,0,1,1,0,0},
+    {0,0,0,0,1,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,1,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0}
+};
+const int BLOCK_SIGNO_QUEMADO[9][9] = {
+
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1}
+};
+const Color BLOCK_SIGNO_PALETTE[2] = {
+    Color::YELLOW,
+    Color::BLACK
+};
+
+
+
 
 #endif

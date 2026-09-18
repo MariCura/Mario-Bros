@@ -10,154 +10,74 @@ using namespace std;
 // Aquí las medidas del mundo
 const int ROWS = 50;
 const int COLS = 120;
+typedef Color World[ROWS][COLS]; // se crea
 
 
-// se crea
-typedef Color World[ROWS][COLS];
+// ----------------------------------------- Colores a utilizar --------------------------------------------
 
-
-// mario de 16 filas x 12 columnas (FALTA HACERLE BIEN SU OJO)
-const int MARIO_SPRITE[16][12] = {
-    {0,0,0,1,1,1,1,1,0,0,0,0},
-    {0,0,1,1,1,1,1,1,1,1,1,0},
-    {0,0,2,2,2,3,3,2,3,0,0,0},
-    {0,2,3,2,3,3,3,2,3,3,3,0},
-    {0,2,3,2,2,3,3,3,2,3,3,3},
-    {0,2,2,3,3,3,3,2,2,2,2,0},
-    {0,0,0,3,3,3,3,3,3,3,0,0},
-    {0,0,1,1,4,1,1,4,1,1,0,0},
-    {0,1,1,1,4,1,1,4,1,1,1,0},
-    {1,1,1,1,4,4,4,4,1,1,1,1},
-    {3,3,1,4,5,4,4,5,1,1,3,3},
-    {3,3,3,4,4,4,4,4,4,3,3,3},
-    {3,3,4,4,4,4,4,4,4,4,3,3},
-    {0,0,4,4,4,0,0,4,4,4,0,0},
-    {0,0,2,2,0,0,0,0,2,2,0,0},
-    {0,2,2,2,0,0,0,0,2,2,2,0}
-};
-const Color MARIO_PALETTE[6] = {
-    Color::WHITE,
-    Color::LIGHTRED_EX,
-    Color::BLACK,
-    Color::LIGHTWHITE_EX,
-    Color::LIGHTBLUE_EX,
-    Color::LIGHTYELLOW_EX
-};
-
-
-// Goomba (la kk) de 16 filas x 16 columnas
-
-const int GOOMBA_SPRITE[16][16] = {
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0},
-    {0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0},
-    {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0},
-    {0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0},
-    {0,0,0,1,1,1,1,1,1,1,1,2,2,1,0,0},
-    {0,0,1,1,1,3,1,1,1,1,2,3,1,1,1,0},
-    {0,0,1,1,1,2,2,2,2,2,2,3,1,1,1,0},
-    {0,1,1,1,1,2,3,1,1,3,2,3,1,1,1,1},
-    {0,1,1,1,1,3,3,1,1,3,3,3,1,1,1,1},
-    {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {0,0,1,1,1,1,3,3,3,3,3,1,1,1,1,0},
-    {0,0,0,0,3,3,3,3,3,3,3,3,0,0,0,0},
-    {0,0,0,3,3,3,3,3,3,3,3,3,2,0,0,0},
-    {0,0,0,2,2,2,3,3,3,3,2,2,2,2,0,0},
-    {0,0,0,2,2,2,2,0,0,2,2,2,2,2,0,0}
-};
-
-const Color GOOMBA_PALETTE[4] = {
-    Color::WHITE,
-    Color::YELLOW,
-    Color::BLACK,
-    Color::LIGHTWHITE_EX
-};
-
-// arbust (se tienen que hacer 4, 3 pegados y uno separado)
-// 7 filas x 8 columnas
-
-const int TREE_SPRITE[7][8] = {
-    {0,0,0,1,1,0,0,0},
-    {0,0,1,1,1,1,0,0},
-    {0,1,1,1,1,1,1,0},
-    {1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1}
-};
-
-const Color TREE_PALETTE[2] = {
-    Color::WHITE,
-    Color::GREEN
-};
-
-
-// la madera roja (9 filas x 9 columnas)
-// se hacen 3 (intercalados con los lucky blocks)
-
-const int BLOCK_MADERA_SPRITE[9][9] = {
-
-    {0,0,0,0,1,0,0,0,0},
-    {0,0,0,0,1,0,0,0,0},
-    {1,1,1,1,1,1,1,1,1},
-    {0,0,1,0,0,0,1,0,0},
-    {0,0,1,0,0,0,1,0,0},
-    {0,0,1,0,0,0,1,0,0},
-    {1,1,1,1,1,1,1,1,1},
-    {0,0,0,0,1,0,0,0,0},
-    {0,0,0,0,1,0,0,0,0}
-};
-
-const Color BLOCK_MADERA_PALETTE[2] = {
-
-    Color::RED,
-    Color::BLACK
-};
-
-// Lucky Blocks (9 filas x 9 columnas)
-// Se hacen 3, uno justo sobre los tres arbustos y dos intercalados con las maderas
-
-const int BLOCK_SIGNO_SPRITE[9][9] = {
-
-    {0,0,0,0,0,0,0,0,0},
-    {0,0,0,1,1,1,0,0,0},
-    {0,0,1,0,0,0,1,0,0},
-    {0,0,0,0,0,1,1,0,0},
-    {0,0,0,0,0,1,1,0,0},
-    {0,0,0,0,1,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,1,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0}
-};
-
-const int BLOCK_SIGNO_QUEMADO[9][9] = {
-
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1}
-};
-
-const Color BLOCK_SIGNO_PALETTE[2] = {
-    Color::YELLOW,
-    Color::BLACK
-};
-
-
-// para crear el world
-void crear_world(World world) {
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            world[i][j] = Color::WHITE;
-        }
+// aquí el ansi
+string ansiColor(Color color) {
+    switch (color) {
+        case Color::BLACK:
+            return "\033[40m";
+        case Color::RED:
+            return "\033[41m";
+        case Color::GREEN:
+            return "\033[42m";
+        case Color::YELLOW:
+            return "\033[43m";
+        case Color::WHITE:
+            return "\033[47m";
+        case Color::LIGHTRED_EX:
+            return "\033[101m";
+        case Color::LIGHTWHITE_EX:
+            return "\033[107m";
+        case Color::LIGHTBLUE_EX:
+            return "\033[104m";
+        case Color::LIGHTYELLOW_EX:
+            return "\033[103m";
+        default:
+            return "\033[47m";
     }
 }
 
+// -------------------------------- Clase SuperMarioMundo Para crear el mundo ----------------------------------
+
+class SuperMarioMundo {
+    private:
+        World papita;
+        int playerRow, playerCol, coins;
+    public:
+        SuperMarioMundo() {
+            crear_world();
+            playerRow = 28;
+            playerCol = 5;
+            coins = 0;
+        }
+
+        // para crear el world
+        void crear_world() {
+            for (int i = 0; i < ROWS; i++){
+                for (int j = 0; j < COLS; j++){
+                    papita[i][j] = Color::WHITE;
+                }
+            }
+        }
+
+
+};
+
+// ----------------------------------- Clase SuperMarioJugador para el mario ------------------------------
+
+// class SuperMarioJugador { Trabajando en ello
+//  private:
+//  int row, col;
+
+//  public:
+
+//  };
+
+// -----------------------------------------------------------------------------------------------------
 
 // aquí se dibuja mario
 void draw_player(World world, int row, int col) {
@@ -286,13 +206,10 @@ void draw_world(World world, int playerRow, int playerCol) {
     // --------------------------------------------------------
 
     for (int i = ROWS - 6; i < ROWS; i++) {
-
         for (int j = 0; j < COLS; j++) {
-
             world[i][j] = Color::RED; // el piso
         }
     }
-
 
     // acá las coordenadas de los arboles
     draw_tree(world, 37, 22);
@@ -303,50 +220,17 @@ void draw_world(World world, int playerRow, int playerCol) {
 
     // acá las cordenadas del resto
     draw_signo(world, 10, 35);
-
     draw_madera(world, 10, 70);
-
     draw_signo(world, 10, 79);
-
     draw_madera(world, 10, 88);
-
     draw_signo(world, 10, 97);
-
     draw_madera(world, 10, 106);
-
 
     // coordenadas de woomba
     draw_goomba(world, 28, 96);
 
-
     // coordenadas de mario (!! Estas las vamos a mover cuando se mueva)
     draw_player(world, playerRow, playerCol);
-}
-
-// aquí el ansi
-string ansiColor(Color color) {
-    switch (color) {
-        case Color::BLACK:
-            return "\033[40m";
-        case Color::RED:
-            return "\033[41m";
-        case Color::GREEN:
-            return "\033[42m";
-        case Color::YELLOW:
-            return "\033[43m";
-        case Color::WHITE:
-            return "\033[47m";
-        case Color::LIGHTRED_EX:
-            return "\033[101m";
-        case Color::LIGHTWHITE_EX:
-            return "\033[107m";
-        case Color::LIGHTBLUE_EX:
-            return "\033[104m";
-        case Color::LIGHTYELLOW_EX:
-            return "\033[103m";
-        default:
-            return "\033[47m";
-    }
 }
 
 
@@ -374,12 +258,9 @@ void render(World world) {
 // EHM ESTA PARTE NO FUNCIONA CREO, HAY QUE CAMBIAR
 
 void move_player( int& playerRow, int& playerCol, const string& option) {
-
     if (option == "right") {
-
         playerCol += 12;
     }
-
     else if (option == "left") {
 
         playerCol -= 12;
