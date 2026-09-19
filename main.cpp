@@ -13,9 +13,9 @@ int main() {
     int playerRow = 28;
     int playerCol = 5;
     // Dibujar todos los elementos
-    draw_world(world, playerRow, playerCol);
+    mundo.draw_world( playerRow, playerCol);
     // Mostrar mundo
-    render(world);
+    mundo.render();
 
     // esto todavia no funciona
     // while (cin >> move && !mundo.Over()) {
