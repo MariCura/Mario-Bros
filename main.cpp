@@ -6,16 +6,24 @@ using namespace std;
 int main() {
     string move;
     World world;
-    crear_world(world);
+    SuperMarioMundo mundo;
+
+
     // Posición inicial de Mario
     int playerRow = 28;
     int playerCol = 5;
     // Dibujar todos los elementos
-    draw_world(world, playerRow, playerCol);
+    mundo.draw_world( playerRow, playerCol);
     // Mostrar mundo
-    render(world);
-    // algun dia avanzaremos esto
-    cin >> move;
+    mundo.render();
+
+    // esto todavia no funciona
+    // while (cin >> move && !mundo.Over()) {
+
+    // aqui iran todos llamados y el juego si
+    // Over sera una funcion que determine si se termina el juego (mario x_x)
+    // }
+
 
     return 0;
 }
