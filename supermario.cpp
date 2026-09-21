@@ -46,7 +46,6 @@ string ansiColor(Color color) {
 class SuperMarioMundo {
 private:
     World papita;
-    int playerRow, playerCol, coins;
 
     // temporal
 
@@ -124,10 +123,8 @@ private:
 public:
     SuperMarioMundo() {
         crear_world();
-        playerRow = 28;
-        playerCol = 5;
-        coins = 0;
     }
+    int coins = 0;
     // para crear el world
     void crear_world() {
         for (int i = 0; i < ROWS; i++){
@@ -140,11 +137,7 @@ public:
 
     // el mundo enterillo // Luigi, il mondo porfavore
     void draw_world( int playerRow, int playerCol) {
-
-        // --------------------------------------------------------
-        // PISO
-        // --------------------------------------------------------
-
+        crear_world();
         for (int i = ROWS - 6; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 papita[i][j] = Color::RED; // el piso
@@ -201,63 +194,48 @@ public:
 
 // -----------------------------------------------------------------------------------------------------
 
-// aquí se dibuja mario
+// EHM ESTA PARTE NO FUNCIONA CREO, HAY QUE CAMBIAR
 
+void move_player( int& playerRow, int& playerCol, const string& option) {
 
-// se dibuja sprite
-void draw_sprite( World world, const int sprite[][16], const Color palette[], int alto, int ancho, int row, int col) {
+    // validar limites ()
+    if (playerRow < 0 || playerRow + 16 > ROWS || playerCol < 0 || playerCol + 12 > COLS) {
+        cout << "invalid operation" <<"\n";
+    } else {
+        if (option == "right") {
+            playerCol += 12;
+        }
+        else if (option == "left") {
 
-    for (int i = 0; i < alto; i++) {
-        for (int j = 0; j < ancho; j++) {
-            int r = row + i;
-            int c = col + j;
-            if (r >= 0 && r < ROWS &&
-                c >= 0 && c < COLS) {
-                int colorIndex = sprite[i][j];
-                world[r][c] = palette[colorIndex];
-            }
+            playerCol -= 12;
+        }
+
+        else if (option == "up") {
+
+            playerRow -= 16;
+        }
+
+        else if (option == "up-right") {
+
+            playerCol += 12;
+            playerRow -= 16;
+        }
+
+        else if (option == "up-left") {
+
+            playerCol -= 12;
+            playerRow -= 16;
         }
     }
 }
 
-
-// EHM ESTA PARTE NO FUNCIONA CREO, HAY QUE CAMBIAR
-
-void move_player( int& playerRow, int& playerCol, const string& option) {
-    if (option == "right") {
-        playerCol += 12;
-    }
-    else if (option == "left") {
-
-        playerCol -= 12;
-    }
-
-    else if (option == "up") {
-
-        playerRow -= 16;
-    }
-
-    else if (option == "up-right") {
-
-        playerCol += 12;
-        playerRow -= 16;
-    }
-
-    else if (option == "up-left") {
-
-        playerCol -= 12;
-        playerRow -= 16;
-    }
-
-
-    // validar limites ()
-    if (playerRow < 0 ||
-        playerRow + 16 > ROWS ||
-        playerCol < 0 ||
-        playerCol + 12 > COLS) {
-
-        cout << "invalid operation" << endl;
+bool Over(int Mariorow, int Mariocol) {
+    if ((Mariorow >= 28 && Mariorow <= 44) && (Mariocol >= 96 && Mariocol <= 110)) {
+        return true;
+    } else {
+        return false;
     }
 }
+
 
 #endif
