@@ -7,14 +7,8 @@ int main() {
     string move;
     SuperMarioMundo mundo;
 
-
-    // Posición inicial de Mario
     int playerRow = 28;
     int playerCol = 5;
-    // Dibujar todos los elementos
-    // Mostrar mundo
-
-    // esto todavia no funciona
 
     do {
         cout << move;

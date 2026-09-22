@@ -47,7 +47,7 @@ class SuperMarioMundo {
 private:
     World papita;
 
-    // temporal
+
 
     void draw_player(int row, int col) {
         for (int i = 0; i < 16; i++) {
@@ -63,7 +63,7 @@ private:
         }
     }
 
-    // temporal
+
 
 
     void draw_goomba(int row, int col) {
@@ -125,7 +125,6 @@ public:
         crear_world();
     }
     int coins = 0;
-    // para crear el world
     void crear_world() {
         for (int i = 0; i < ROWS; i++){
             for (int j = 0; j < COLS; j++){
@@ -133,7 +132,6 @@ public:
             }
         }
     }
-
 
     // el mundo enterillo // Luigi, il mondo porfavore
     void draw_world( int playerRow, int playerCol) {
@@ -182,23 +180,10 @@ public:
 
 };
 
-// ----------------------------------- Clase SuperMarioJugador para el mario ------------------------------
-
-// class SuperMarioJugador { Trabajando en ello
-//  private:
-//  int row, col;
-
-//  public:
-
-//  };
-
-// -----------------------------------------------------------------------------------------------------
-
-// EHM ESTA PARTE NO FUNCIONA CREO, HAY QUE CAMBIAR
+SuperMarioMundo mundo;
 
 void move_player( int& playerRow, int& playerCol, const string& option) {
 
-    // validar limites ()
     if (playerRow < 0 || playerRow + 16 > ROWS || playerCol < 0 || playerCol + 12 > COLS) {
         cout << "invalid operation" <<"\n";
     } else {
@@ -213,18 +198,27 @@ void move_player( int& playerRow, int& playerCol, const string& option) {
         else if (option == "up") {
 
             playerRow -= 16;
+            mundo.draw_world( playerRow, playerCol);
+            mundo.render();
+            playerRow += 16;
         }
 
         else if (option == "up-right") {
 
             playerCol += 12;
             playerRow -= 16;
+            mundo.draw_world( playerRow, playerCol);
+            mundo.render();
+            playerRow += 16;
         }
 
         else if (option == "up-left") {
 
             playerCol -= 12;
             playerRow -= 16;
+            mundo.draw_world( playerRow, playerCol);
+            mundo.render();
+            playerRow += 16;
         }
     }
 }
