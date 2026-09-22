@@ -5,25 +5,18 @@ using namespace std;
 
 int main() {
     string move;
-    World world;
     SuperMarioMundo mundo;
 
-
-    // Posición inicial de Mario
     int playerRow = 28;
     int playerCol = 5;
-    // Dibujar todos los elementos
-    mundo.draw_world( playerRow, playerCol);
-    // Mostrar mundo
-    mundo.render();
 
-    // esto todavia no funciona
-    // while (cin >> move && !mundo.Over()) {
+    do {
+        cout << move;
+        move_player(playerRow,playerCol, move);
+        mundo.draw_world( playerRow, playerCol);
+        mundo.render();
+    } while (cin >> move && !Over(playerRow, playerCol + 12) && mundo.coins != 3);
 
-    // aqui iran todos llamados y el juego si
-    // Over sera una funcion que determine si se termina el juego (mario x_x)
-    // }
-
-
+    cout << "game over" <<"\n";
     return 0;
 }
