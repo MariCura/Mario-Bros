@@ -45,6 +45,8 @@ string ansiColor(Color color) {
 
 int coins = 0;
 bool bl_check[3]={false,false,false};
+int blrow[3]={10,10,10};
+int blcol[3]={35,79,97};
 
 class SuperMarioMundo {
 private:
@@ -101,6 +103,7 @@ private:
     }
 
     void draw_madera(int row, int col) {
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 int r = row + i;
@@ -128,7 +131,7 @@ private:
 
     void draw_coin(int row, int col) {
         for (int i = 0; i < 7; i++) {
-            for (int j = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
                 int r = row + i;
                 int c = col + j;
                 if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
@@ -181,7 +184,17 @@ public:
 
         // coordenadas de mario (!! Estas las vamos a mover cuando se mueva)
         draw_player(playerRow, playerCol);
-        draw_coin( 30, 40);
+
+        if (touch(playerRow, playerCol, 0)) {
+            draw_coin( 3, 36);
+        }
+        if (touch(playerRow, playerCol, 1)) {
+            draw_coin( 3, 80);
+        }
+        if (touch(playerRow, playerCol, 2)) {
+            draw_coin( 3, 98);
+        }
+
     }
 
     void render() {
@@ -198,8 +211,7 @@ public:
         }
     }
 
-    int blrow[3]={10,10,10};   // describe los bloquesitos
-    int blcol[3]={35,79,97};
+
 
 
     bool touch (int Mariow, int Mariol, int n) {
@@ -246,7 +258,7 @@ public:
         }
     }
 
-    void draw_signal(int row, int col) {
+    void draw_signal(int row, int col, int playerRow, int playerCol) {
         for (int i =0; i<9; i++) {
             for (int j=0; j<9; j++) {              //para pintar el bloque a quemado
                 int r = row + i;
@@ -256,12 +268,13 @@ public:
                     papita[r][c]=BLOCK_SIGNO_PALETTE[BLOCK_SIGNO_QUEMADO[i][j]];
             }
         }
+        draw_player(playerRow, playerCol);
     }
 
-    void upcoins() {
+    void upcoins(int playerRow, int playerCol) {
         for (int i= 0; i<3; i++) {
             if (bl_check [i])
-                draw_signal(blrow[i],blcol[i]);    //y este los re-pinta
+                draw_signal(blrow[i],blcol[i], playerRow, playerCol);    //y este los re-pinta
         }
     }
 
@@ -278,7 +291,7 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
         playerRow -= 16;
         mundo.draw_world( playerRow, playerCol);
         mundo.review(playerRow, playerCol);
-        mundo.upcoins();
+        mundo.upcoins(playerRow, playerCol);
         mundo.render();
         playerRow += 16;
     } else if (option == "up-right") {
@@ -287,7 +300,7 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
         playerRow -= 16;
         mundo.draw_world( playerRow, playerCol);
         mundo.review(playerRow, playerCol);
-        mundo.upcoins();
+        mundo.upcoins(playerRow, playerCol);
         mundo.render();
         playerRow += 16;
     } else if (option == "up-left") {
@@ -295,7 +308,7 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
         playerRow -= 16;
         mundo.draw_world( playerRow, playerCol);
         mundo.review(playerRow, playerCol);
-        mundo.upcoins();
+        mundo.upcoins(playerRow, playerCol);
         mundo.render();
         playerRow += 16;
     }

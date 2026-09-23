@@ -28,7 +28,7 @@ int main() {
         move_player(playerRow,playerCol, move, booleano);
         mundo.draw_world( playerRow, playerCol);
         mundo.review(playerRow, playerCol);
-        mundo.upcoins();
+        mundo.upcoins(playerRow, playerCol);
         mundo.render();
 
         cout << "$ Coins = " << coins << "\n";
