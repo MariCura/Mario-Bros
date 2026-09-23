@@ -180,6 +180,74 @@ public:
         }
     }
 
+    int blrow[3]={10,10,10};   // describe los bloquesitos
+    int blcol[3]={35,79,97};
+    bool bl_check[3]={false,false,false};
+
+
+    bool touch (int Mariow, int Mariol, int n) {
+        int tpblow = blrow[n];
+        int flblow = blrow[n] + 8;
+
+        int tpcol = blcol[n];       //son los limites de columna y fila que se deben considerar para un "toco el bloque"
+        int flcol = blcol[n]+8;
+
+        int marioLeft = Mariol;
+        int marioRight = Mariol + 11;
+
+        bool touchfil;
+
+        if (Mariow >= tpblow && Mariow <= flblow)
+            touchfil =true;
+        else
+            touchfil =false;
+
+        bool touchcol;
+
+        if (marioLeft <= flcol && marioRight >= tpcol) 
+            touchcol=true;
+        else
+            touchcol =false;
+
+        bool touch;
+
+        if (touchfil && touchcol)   //en caso tanto fila como columna (osea cual de los 3 bloques toco) esto kabom dice si lo todo 
+            touch =true;
+        else 
+            touch =false;
+
+        return touch;   //miami lo confirmo 
+    }
+
+    void review (int Mariow, int Mariol)
+    {
+        for (int i=0; i<3;i++) {
+            if ( !bl_check[i] && touch (Mariow, Mariol,i)) {        //es para revisar si lo toco suma la plata y check si paso
+                bl_check[i]=true;
+                coins++;
+            }
+        }
+    }
+
+    void draw_signal(int row, int col) {
+        for (int i =0; i<9; i++) {
+            for (int j=0; j<9; j++) {              //para pintar el bloque a quemado
+                int r = row + i;
+                int c = col + j;
+
+                if (r>=0 && r < ROWS && c >= 0 && c<COLS)
+                    papita[r][c]=BLOCK_SIGNO_PALETTE[BLOCK_SIGNO_QUEMADO[i][j]];
+            }
+        }
+    }
+
+    void upcoins() {
+        for (int i= 0; i<3; i++) {
+            if (bl_check [i])                      
+                draw_signal(blrow[i],blcol[i]);    //y este los re-pinta
+        }
+    }
+
 };
 
 SuperMarioMundo mundo;
@@ -201,6 +269,8 @@ void move_player( int& playerRow, int& playerCol, const string& option) {
 
             playerRow -= 16;
             mundo.draw_world( playerRow, playerCol);
+            mundo.review(playerRow, playerCol);
+            mundo.upcoins();
             mundo.render();
             playerRow += 16;
         }
@@ -210,6 +280,8 @@ void move_player( int& playerRow, int& playerCol, const string& option) {
             playerCol += 12;
             playerRow -= 16;
             mundo.draw_world( playerRow, playerCol);
+            mundo.review(playerRow, playerCol);
+            mundo.upcoins();
             mundo.render();
             playerRow += 16;
         }
@@ -219,6 +291,8 @@ void move_player( int& playerRow, int& playerCol, const string& option) {
             playerCol -= 12;
             playerRow -= 16;
             mundo.draw_world( playerRow, playerCol);
+            mundo.review(playerRow, playerCol);
+            mundo.upcoins();
             mundo.render();
             playerRow += 16;
         }
