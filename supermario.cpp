@@ -43,6 +43,9 @@ string ansiColor(Color color) {
 
 // -------------------------------- Clase SuperMarioMundo Para crear el mundo ----------------------------------
 
+int coins = 0;
+bool bl_check[3]={false,false,false};
+
 class SuperMarioMundo {
 private:
     World papita;
@@ -123,12 +126,23 @@ private:
         }
     }
 
+    void draw_coin(int row, int col) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; i < 7; i++) {
+                int r = row + i;
+                int c = col + j;
+                if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                    papita[r][c] = COIN_PALLETE[COIN_SPRITE[i][j]];
+                }
+            }
+        }
+    }
+
 
 public:
     SuperMarioMundo() {
         crear_world();
     }
-    int coins = 0;
     void crear_world() {
         for (int i = 0; i < ROWS; i++){
             for (int j = 0; j < COLS; j++){
@@ -161,11 +175,13 @@ public:
         draw_signo( 10, 97);
         draw_madera( 10, 106);
 
+
         // coordenadas de woomba
         draw_goomba(28, 90);
 
         // coordenadas de mario (!! Estas las vamos a mover cuando se mueva)
         draw_player(playerRow, playerCol);
+        draw_coin( 30, 40);
     }
 
     void render() {
@@ -178,13 +194,12 @@ public:
                 // Restauramos después de cada celda
                 cout << "\033[0m";
             }
-            cout<<endl;
+            cout<<"\n";
         }
     }
 
     int blrow[3]={10,10,10};   // describe los bloquesitos
     int blcol[3]={35,79,97};
-    bool bl_check[3]={false,false,false};
 
 
     bool touch (int Mariow, int Mariol, int n) {
@@ -224,7 +239,7 @@ public:
     void review (int Mariow, int Mariol)
     {
         for (int i=0; i<3;i++) {
-            if ( !bl_check[i] && touch (Mariow, Mariol,i)) {        //es para revisar si lo toco suma la plata y check si paso
+            if ( !bl_check[i] && touch(Mariow, Mariol,i)) {        //es para revisar si lo toco suma la plata y check si paso
                 bl_check[i]=true;
                 coins++;
             }

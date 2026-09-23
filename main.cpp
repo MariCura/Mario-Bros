@@ -17,7 +17,7 @@ int main() {
     mundo.draw_world( playerRow, playerCol);
     mundo.render();
 
-    while (cin >> move && mundo.coins != 3) {
+    while (cin >> move && coins != 3) {
         movimientos.push_back(move);
         cout<<"$ init"<<"\n";
 
@@ -31,7 +31,7 @@ int main() {
         mundo.upcoins();
         mundo.render();
 
-        cout << "$ Coins = " << mundo.coins << "\n";
+        cout << "$ Coins = " << coins << "\n";
         if (Over(playerRow, playerCol + 12) || booleano) {
             cout << "$ Game over" <<"\n";
             break;

@@ -201,7 +201,22 @@ const Color BLOCK_SIGNO_PALETTE[2] = {
     Color::BLACK
 };
 
+const int COIN_SPRITE[7][7] = {
 
+    {0,0,1,1,1,0,0},
+    {0,1,1,1,1,1,0},
+    {1,1,1,2,1,1,1},
+    {1,1,1,2,1,1,1},
+    {1,1,1,2,1,1,1},
+    {0,1,1,2,1,1,0},
+    {0,0,1,1,1,0,0},
+
+};
+const Color COIN_PALLETE[3] = {
+    Color::WHITE,
+    Color::YELLOW,
+    Color::BLACK
+};
 
 
 #endif
