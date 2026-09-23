@@ -14,6 +14,8 @@ int main() {
         cout << move;
         move_player(playerRow,playerCol, move);
         mundo.draw_world( playerRow, playerCol);
+        mundo.review(playerRow, playerCol);
+        mundo.upcoins();
         mundo.render();
     } while (cin >> move && !Over(playerRow, playerCol + 12) && mundo.coins != 3);
 
