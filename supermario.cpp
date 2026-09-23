@@ -204,19 +204,19 @@ public:
 
         bool touchcol;
 
-        if (marioLeft <= flcol && marioRight >= tpcol) 
+        if (marioLeft <= flcol && marioRight >= tpcol)
             touchcol=true;
         else
             touchcol =false;
 
         bool touch;
 
-        if (touchfil && touchcol)   //en caso tanto fila como columna (osea cual de los 3 bloques toco) esto kabom dice si lo todo 
+        if (touchfil && touchcol)   //en caso tanto fila como columna (osea cual de los 3 bloques toco) esto kabom dice si lo todo
             touch =true;
-        else 
+        else
             touch =false;
 
-        return touch;   //miami lo confirmo 
+        return touch;   //miami lo confirmo
     }
 
     void review (int Mariow, int Mariol)
@@ -243,7 +243,7 @@ public:
 
     void upcoins() {
         for (int i= 0; i<3; i++) {
-            if (bl_check [i])                      
+            if (bl_check [i])
                 draw_signal(blrow[i],blcol[i]);    //y este los re-pinta
         }
     }
