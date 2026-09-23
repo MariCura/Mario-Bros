@@ -73,9 +73,11 @@ private:
             for (int j = 0; j < 16; j++) {
                 int r = row + i;
                 int c = col + j;
-
-                if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
-                    papita[r][c] = GOOMBA_PALETTE[GOOMBA_SPRITE[i][j]];
+                if (r >= 0 && r < ROWS &&
+                    c >= 0 && c < COLS) {
+                    if (GOOMBA_SPRITE[i][j] != 0) {
+                        papita[r][c] = GOOMBA_PALETTE[GOOMBA_SPRITE[i][j]];
+                    }
                 }
             }
         }
@@ -160,7 +162,7 @@ public:
         draw_madera( 10, 106);
 
         // coordenadas de woomba
-        draw_goomba(28, 96);
+        draw_goomba(28, 90);
 
         // coordenadas de mario (!! Estas las vamos a mover cuando se mueva)
         draw_player(playerRow, playerCol);
@@ -211,7 +213,7 @@ public:
 
         bool touch;
 
-        if (touchfil && touchcol)   //en caso tanto fila como columna (osea cual de los 3 bloques toco) esto kabom dice si lo todo
+        if (touchfil && touchcol)   //en caso tanto fila como columna (osea cual de los 3 bloques toco) esto kabom dice si lo toco
             touch =true;
         else
             touch =false;
@@ -252,52 +254,44 @@ public:
 
 SuperMarioMundo mundo;
 
-void move_player( int& playerRow, int& playerCol, const string& option) {
+void move_player( int& playerRow, int& playerCol, const string& option, bool& booleano) {
+    if (option == "right") {
+        playerCol += 12;
+    } else if (option == "left") {
+        playerCol -= 12;
+    } else if (option == "up") {
+        playerRow -= 16;
+        mundo.draw_world( playerRow, playerCol);
+        mundo.review(playerRow, playerCol);
+        mundo.upcoins();
+        mundo.render();
+        playerRow += 16;
+    } else if (option == "up-right") {
+
+        playerCol += 12;
+        playerRow -= 16;
+        mundo.draw_world( playerRow, playerCol);
+        mundo.review(playerRow, playerCol);
+        mundo.upcoins();
+        mundo.render();
+        playerRow += 16;
+    } else if (option == "up-left") {
+        playerCol -= 12;
+        playerRow -= 16;
+        mundo.draw_world( playerRow, playerCol);
+        mundo.review(playerRow, playerCol);
+        mundo.upcoins();
+        mundo.render();
+        playerRow += 16;
+    }
 
     if (playerRow < 0 || playerRow + 16 > ROWS || playerCol < 0 || playerCol + 12 > COLS) {
         cout << "invalid operation" <<"\n";
-    } else {
-        if (option == "right") {
-            playerCol += 12;
-        }
-        else if (option == "left") {
-
-            playerCol -= 12;
-        }
-
-        else if (option == "up") {
-
-            playerRow -= 16;
-            mundo.draw_world( playerRow, playerCol);
-            mundo.review(playerRow, playerCol);
-            mundo.upcoins();
-            mundo.render();
-            playerRow += 16;
-        }
-
-        else if (option == "up-right") {
-
-            playerCol += 12;
-            playerRow -= 16;
-            mundo.draw_world( playerRow, playerCol);
-            mundo.review(playerRow, playerCol);
-            mundo.upcoins();
-            mundo.render();
-            playerRow += 16;
-        }
-
-        else if (option == "up-left") {
-
-            playerCol -= 12;
-            playerRow -= 16;
-            mundo.draw_world( playerRow, playerCol);
-            mundo.review(playerRow, playerCol);
-            mundo.upcoins();
-            mundo.render();
-            playerRow += 16;
-        }
+        booleano = true;
     }
+
 }
+
 
 bool Over(int Mariorow, int Mariocol) {
     if ((Mariorow >= 28 && Mariorow <= 44) && (Mariocol >= 96 && Mariocol <= 110)) {
