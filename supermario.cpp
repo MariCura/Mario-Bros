@@ -57,8 +57,10 @@ private:
                 if (r >= 0 && r < ROWS &&
                     c >= 0 && c < COLS) {
                     int colorIndex = MARIO_SPRITE[i][j];
-                    papita[r][c] = MARIO_PALETTE[colorIndex];
+                    if (colorIndex !=0){
+                        papita[r][c] = MARIO_PALETTE[colorIndex];
                     }
+                }
             }
         }
     }
