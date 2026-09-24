@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     string move;
-    SuperMarioMundo mundo;
+    crear_world();
     vector<string>movimientos;
     bool booleano = false;
     int playerRow = 28;
@@ -14,8 +14,8 @@ int main() {
 
     cout<<"$ init"<<"\n";
     cout<<"$ Welcome to the world of super mario bros xyz"<<"\n";
-    mundo.draw_world( playerRow, playerCol);
-    mundo.render();
+    draw_world( playerRow, playerCol);
+    render();
 
     while (cin >> move && coins != 3) {
         movimientos.push_back(move);
@@ -26,10 +26,10 @@ int main() {
         }
 
         move_player(playerRow,playerCol, move, booleano);
-        mundo.draw_world( playerRow, playerCol);
-        mundo.review(playerRow, playerCol);
-        mundo.upcoins(playerRow, playerCol);
-        mundo.render();
+        draw_world( playerRow, playerCol);
+        review(playerRow, playerCol);
+        upcoins(playerRow, playerCol);
+        render();
 
         cout << "$ Coins = " << coins << "\n";
         if (Over(playerRow, playerCol + 12) || booleano) {
