@@ -10,15 +10,19 @@ int main() {
     crear_world();
     bool booleano = false;
     int playerRow = 28;
-    int playerCol = 5;
+    int playerCol = 3;
     vector<string> movimientos;
 
     cout<<"$ init"<<"\n";
     cout<<"$ Welcome to the world of super mario bros xyz"<<"\n";
     draw_world( playerRow, playerCol);
     render();
+    cout << "$ Coins = " << coins << "\n";
 
-    while (getline(cin, linea) && coins != 3) {
+    while (true) {
+        cout<<"$ ";
+        getline(cin, linea);
+
         movimientos.push_back(linea);
         cout<<"$ init"<<"\n";
         for (size_t i = 0; i < movimientos.size(); i++) {
@@ -27,13 +31,18 @@ int main() {
 
         stringstream ss(linea);
         string move;
+
         while (ss >> move) {
             move_player(playerRow,playerCol, move, booleano);
-            draw_world( playerRow, playerCol);
-            review(playerRow, playerCol);
-            upcoins(playerRow, playerCol);
-            render();
+            if (booleano) {
+                break;
+            }
         }
+
+        draw_world( playerRow, playerCol);
+        review(playerRow, playerCol);
+        upcoins(playerRow, playerCol);
+        render();
 
         cout << "$ Coins = " << coins << "\n";
         if (Over(playerRow, playerCol + 12) || booleano) {

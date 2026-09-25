@@ -46,7 +46,7 @@ string ansiColor(Color color) {
 int coins = 0;
 bool bl_check[3]={false,false,false};
 int blrow[3]={10,10,10};
-int blcol[3]={35,79,97};
+int blcol[3]={35,83,101};
 
 World papita;
 
@@ -167,17 +167,17 @@ bool touch (int Mariow, int Mariol, int n) {
         touchcol =false;
     }
 
-    bool touch;
+    bool is_touch;
 
     if (touchfil && touchcol) {
         //en caso tanto fila como columna (osea cual de los 3 bloques toco) esto kabom dice si lo toco
-        touch =true;
+        is_touch =true;
     }else {
-        touch =false;
+        is_touch =false;
     }
 
 
-    return touch;   //miami lo confirmo
+    return is_touch;   //miami lo confirmo
 }
 
 
@@ -193,33 +193,33 @@ void draw_world( int playerRow, int playerCol) {
     draw_tree( 37, 22);
     draw_tree( 37, 30);
     draw_tree( 37, 38);
-    draw_tree( 37, 84);
+    draw_tree( 37, 98);
 
     // acá las cordenadas del resto
     draw_signo( 10, 35);
-    draw_madera( 10, 70);
-    draw_signo( 10, 79);
-    draw_madera( 10, 88);
-    draw_signo( 10, 97);
-    draw_madera( 10, 106);
+    draw_madera( 10, 74);
+    draw_signo( 10, 83);
+    draw_madera( 10, 92);
+    draw_signo( 10, 101);
+    draw_madera( 10, 110);
 
 
     // coordenadas de woomba
-    draw_goomba(28, 90);
+    draw_goomba(28, 104);
 
     // coordenadas de mario (!! Estas las vamos a mover cuando se mueva)
     draw_player(playerRow, playerCol);
 
-    if (touch(playerRow, playerCol, 0)) {
+    if (!bl_check[0] && touch(playerRow, playerCol, 0)) {
         draw_coin( 3, 36);
     }
 
-    if (touch(playerRow, playerCol, 1)) {
-        draw_coin( 3, 80);
+    if (!bl_check[1] && touch(playerRow, playerCol, 1)) {
+        draw_coin( 3, 84);
     }
 
-    if (touch(playerRow, playerCol, 2)) {
-        draw_coin( 3, 98);
+    if (!bl_check[2] && touch(playerRow, playerCol, 2)) {
+        draw_coin( 3, 102);
     }
 
 }
@@ -306,7 +306,7 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
 
 
 bool Over(int Mariorow, int Mariocol) {
-    if ((Mariorow >= 28 && Mariorow <= 44) && (Mariocol >= 96 && Mariocol <= 110)) {
+    if ((Mariorow >= 28 && Mariorow <= 43) && (Mariocol >= 104 && Mariocol <= 119)) {
         return true;
     } else {
         return false;
