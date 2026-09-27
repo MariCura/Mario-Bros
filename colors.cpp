@@ -43,7 +43,7 @@ inline string color(Color colore  ) { // luigi, il colore por favore...
         case Color::GREEN:          return "\033[32m";
         case Color::LIGHTGREEN_EX:  return "\033[92m";
 
-        case Color::YELLOW:         return "\033[33m";
+        case Color::YELLOW:         return "\033[43m";
         case Color::LIGHTYELLOW_EX: return "\033[93m";
 
         case Color::BLUE:           return "\033[34m";
@@ -104,7 +104,7 @@ const Color MARIO_PALETTE[6] = {
 };
 
 
-// Goomba (la kk) de 16 filas x 16 columnas
+// Goomba (lo marrón) de 16 filas x 16 columnas
 const int GOOMBA_SPRITE[16][16] = {
     {0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0},
     {0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0},
@@ -197,7 +197,7 @@ const int BLOCK_SIGNO_QUEMADO[9][9] = {
     {1,1,1,1,1,1,1,1,1}
 };
 const Color BLOCK_SIGNO_PALETTE[2] = {
-    Color::YELLOW,
+    Color::LIGHTYELLOW_EX,
     Color::BLACK
 };
 

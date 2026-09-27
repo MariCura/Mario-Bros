@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "supermario.cpp"
+#include "supermario.h"
 using namespace std;
 
 int main() {
