@@ -132,6 +132,7 @@ void draw_coin(int row, int col) {
     }
 }
 
+
 void crear_world() {
     for (int i = 0; i < ROWS; i++){
         for (int j = 0; j < COLS; j++){
@@ -139,8 +140,6 @@ void crear_world() {
         }
     }
 }
-
-// el mundo enterillo // Luigi, il mondo porfavore
 
 bool touch (int Mariow, int Mariol, int n) {
     int tpblow = blrow[n];
@@ -180,6 +179,8 @@ bool touch (int Mariow, int Mariol, int n) {
     return is_touch;   //miami lo confirmo
 }
 
+
+// el mundo enterillo // Luigi, il mondo porfavore
 
 void draw_world( int playerRow, int playerCol) {
     crear_world();
