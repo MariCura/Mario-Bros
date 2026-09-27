@@ -40,7 +40,7 @@ int main() {
         }
 
         draw_world( playerRow, playerCol);
-        review(playerRow, playerCol);
+        collect_coins(playerRow, playerCol);
         upcoins(playerRow, playerCol);
         render();
 

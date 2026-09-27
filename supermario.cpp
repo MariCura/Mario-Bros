@@ -237,7 +237,7 @@ void render() {
     }
 }
 
-void review (int Mariow, int Mariol){
+void collect_coins (int Mariow, int Mariol){
     for (int i=0; i<3;i++) {
         if ( !bl_check[i] && touch(Mariow, Mariol,i)) {        //es para revisar si lo toco suma la plata y check si paso
             bl_check[i]=true;
@@ -274,7 +274,7 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
     } else if (option == "up") {
         playerRow -= 16;
         draw_world( playerRow, playerCol);
-        review(playerRow, playerCol);
+        collect_coins(playerRow, playerCol);
         upcoins(playerRow, playerCol);
         render();
         playerRow += 16;
@@ -283,7 +283,7 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
         playerCol += 12;
         playerRow -= 16;
         draw_world( playerRow, playerCol);
-        review(playerRow, playerCol);
+        collect_coins(playerRow, playerCol);
         upcoins(playerRow, playerCol);
         render();
         playerRow += 16;
@@ -291,14 +291,14 @@ void move_player( int& playerRow, int& playerCol, const string& option, bool& bo
         playerCol -= 12;
         playerRow -= 16;
         draw_world( playerRow, playerCol);
-        review(playerRow, playerCol);
+        collect_coins(playerRow, playerCol);
         upcoins(playerRow, playerCol);
         render();
         playerRow += 16;
     }
 
     if (playerRow < 0 || playerRow + 16 > ROWS || playerCol < 0 || playerCol + 12 > COLS) {
-        cout << "invalid operation" <<"\n";
+        cout << "$ invalid operation" <<"\n";
         booleano = true;
     }
 
@@ -312,6 +312,5 @@ bool Over(int Mariorow, int Mariocol) {
         return false;
     }
 }
-
 
 #endif
